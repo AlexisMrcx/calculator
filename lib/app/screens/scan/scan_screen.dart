@@ -78,15 +78,15 @@ class _ScanScreenState extends State<ScanScreen> {
           child: new InkResponse(
         enableFeedback: true,
         child: new Image.file(File(imageList[i].path), fit: BoxFit.cover,),
-        onTap: () => onImageTap(i),
+        onTap: () => onImageTap(capturedImagesList[i].path),
       )));
     }
 
     return images;
   }
 
-  onImageTap(int index) {
-    Navigator.pushNamed(context, kScanDetailsRoute, arguments: capturedImagesList[index].path);
+  onImageTap(String path) {
+    Navigator.pushNamed(context, kScanDetailsRoute, arguments: path);
   }
 
   @override
@@ -131,7 +131,13 @@ class _ScanScreenState extends State<ScanScreen> {
                       File(lastImagePath), 
                       height: 150, 
                       width: 150,),
-                    Text('Mes factures'),
+                    Text(
+                      'Mes factures',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,                        
+                      ),
+                      ),
                     capturedImage == null
                     ? Container()
                     : GridView.count(
